@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class ServicioController extends Controller
 {
@@ -32,8 +35,10 @@ class ServicioController extends Controller
      */
     public function admin()
     {
-        $servicios = Servicio::orderBy('nombre')->get();
-        return view('admin.servicios.index', compact('servicios'));
+       $usuario = Auth::user();          // usuario logueado
+       $servicios = Servicio::orderBy('nombre')->get();
+
+        return view('admin.servicios.index', compact('usuario', 'servicios'));
     }
 
     /**

@@ -45,8 +45,16 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
         // Servicios
     Route::get('/servicios', [ServicioController::class, 'admin'])->name('servicios.index');
-    // ...resto de rutas de servicios...
+  // Servicios (CRUD)
+        Route::get('/servicios', [ServicioController::class, 'admin'])->name('servicios.index');
+        Route::get('/servicios/create', [ServicioController::class, 'create'])->name('servicios.create');
+        Route::post('/servicios', [ServicioController::class, 'store'])->name('servicios.store');
+        Route::get('/servicios/{servicio}/edit', [ServicioController::class, 'edit'])->name('servicios.edit');
+        Route::put('/servicios/{servicio}', [ServicioController::class, 'update'])->name('servicios.update');
+        Route::delete('/servicios/{servicio}', [ServicioController::class, 'destroy'])->name('servicios.destroy');
 
+        // Activar / Desactivar
+        Route::post('/servicios/{servicio}/toggle', [ServicioController::class, 'toggle'])->name('servicios.toggle');
     // 🔹 Página principal de reportes
     Route::get('/reportes', [ReporteController::class, 'index'])->name('reportes.index');
 
